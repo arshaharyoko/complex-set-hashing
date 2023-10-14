@@ -3,10 +3,11 @@
 #include "fractal.hh"
 #include "cse.hh"
 
-using namespace std;
-
 int main() {
-    std::string hash = cse("test", 128, 32);
-    std::cout<< hash << std::endl;
+    const uint dim = 128;
+    Digest digest_1 = cse("test", dim, 16);
+    Digest digest_2 = cse("trst", dim, 16);
+    std::cout << digest_1.hash << std::endl;
+    std::cout << digest_2.hash << std::endl;
     return 0;
 }
