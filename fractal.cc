@@ -1,40 +1,5 @@
 #include "fractal.hh"
 
-using namespace std::complex_literals;
-
-uint64_t find_nth_work_size_divisor(const uint64_t size, const uint n) {
-    uint64_t nth_divisor = size;
-    uint step = 0;
-
-    for(uint64_t i=size; i>0; i--) {
-        if(step==n) break;
-        if((size%i)==0&&(size/i)%2==0) {
-            nth_divisor = i;
-            step++;
-        }
-    }
-
-    return nth_divisor;
-} 
-
-char* load_source_file(const char* filename) {
-    std::ifstream cl_source(filename);
-    if(!cl_source.is_open()) {
-        std::cout << "Failed to load OpenCL source file" << std::endl;
-        return const_cast<char*>("\0");
-    }
-
-    cl_source.std::istream::seekg(0, std::ios::end);
-    std::streampos file_sz = cl_source.std::istream::tellg();
-    cl_source.std::istream::seekg(0, std::ios::beg);
-
-    char* cl_source_code = new char[static_cast<size_t>(file_sz)+1];
-    cl_source.std::istream::read(cl_source_code, file_sz);
-    cl_source_code[file_sz] = '\0';
-    cl_source.std::ifstream::close();
-    return cl_source_code;
-}
-
 double* generate_fractal_set(const uint32_t i_, const uint32_t j_,
                             const double x_translate_, const double y_translate_,
                             const double zoom, const double c_re, const double c_im) {
