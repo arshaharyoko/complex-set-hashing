@@ -1,3 +1,21 @@
+__kernel void vec_matmul(__global double* a, __global double* b, __global double* c, uint sz_i, uint sz_j) {
+    int idx_x = get_global_id(0);
+    int idx_y = get_global_id(1);
+    
+    if(idx_x<sz_i&&idx_y<sz_j) { 
+        // Element-Wise Matmul (Hadamard Product)
+        c[idx_y*sz_i+idx_x] = a[idx_y*sz_i+idx_x]*b[idx_y*sz_i+idx_x];
+        
+        // Normal Matmul
+        // double sum = 0;
+        // #pragma unroll
+        // for(int n=0;n<sz_i;n++) {
+        //     sum += a[idx_y*sz_i+n]*b[sz_j*n+idx_x];
+        // }
+        // c[idx_y*sz_i+idx_x] = sum;
+    }
+}
+
 __kernel void cl_generate_fractal_set(__global double* out_mat,
                                       int i_, int j_,
                                       double x_translate_, double y_translate_,
